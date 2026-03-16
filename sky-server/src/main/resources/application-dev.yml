@@ -8,6 +8,6 @@ sky:
     password: 1234
   alioss:
     endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-id: your_real_access_key_id
-    access-key-secret: your_real_access_key_secret
+    access-key-id: your AccessKeyId
+    access-key-secret: your AccessKeySecret
     bucket-name: sky-sunye
