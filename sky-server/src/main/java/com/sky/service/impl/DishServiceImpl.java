@@ -8,10 +8,13 @@ import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.entity.Setmeal;
+import com.sky.entity.SetmealDish;
 import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
+import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -21,6 +24,7 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,6 +38,8 @@ public class DishServiceImpl implements DishService {
     private HttpMessageConverters messageConverters;
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private SetmealMapper setmealMapper;
 
     /**
      * 新增菜品和口味
@@ -129,6 +135,28 @@ public class DishServiceImpl implements DishService {
                 flavor.setDishId(dishDTO.getId());
             }
             dishFlavorMapper.insertBatch(flavors);
+        }
+    }
+
+    /**
+     * 启动或停用菜品
+     * @param status
+     * @param id
+     */
+    public void startOrStopDish(Integer status, Long id) {
+        Dish dish=Dish.builder().id(id).status(status).build();
+        dishMapper.update(dish);
+//        如果是停售也需要与菜品关联的套餐停售
+        if (status == StatusConstant.DISABLE) {
+            List<Long> ids=new ArrayList<>();
+            ids.add(id);
+            List<Long> setmealIds = setmealDishMapper.getSetmealIdByDishIds(ids);
+            if (setmealIds != null && setmealIds.size() > 0) {
+                for (Long setmealId : setmealIds) {
+                    Setmeal setmeal=Setmeal.builder().id(setmealId).status(StatusConstant.DISABLE).build();
+                    setmealMapper.update(setmeal);
+                }
+            }
         }
     }
 }
