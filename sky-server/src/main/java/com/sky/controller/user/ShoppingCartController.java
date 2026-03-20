@@ -32,4 +32,16 @@ public class ShoppingCartController {
         shoppingCartService.add(shoppingCartDTO);
         return Result.success();
     }
+
+    /**
+     * 查询购物车列表
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("查询购物车列表")
+    public Result<List<ShoppingCart>> list(){
+        log.info("查询购物车列表");
+        List<ShoppingCart> shoppingCartList = shoppingCartService.showShoppingCart();
+        return Result.success(shoppingCartList);
+    }
 }

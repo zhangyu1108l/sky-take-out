@@ -13,4 +13,10 @@ public interface ShoppingCartService {
      * @param shoppingCartDTO
      */
     void add(ShoppingCartDTO shoppingCartDTO);
+
+    /**
+     * 查询购物车列表
+     * @return
+     */
+    List<ShoppingCart> showShoppingCart();
 }
