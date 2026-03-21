@@ -1,10 +1,9 @@
 package com.sky.mapper;
 
-import com.sky.entity.OrderDetail;
+import com.github.pagehelper.Page;
+import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 @Mapper
 public interface OrderMapper {
@@ -12,6 +11,12 @@ public interface OrderMapper {
      * 新增订单
      */
     void insert(Orders orders);
+    /**
+     * 分页条件查询并按下单时间排序
+     *
+     * @param ordersPageQueryDTO
+     */
+    Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
 
 
 }
