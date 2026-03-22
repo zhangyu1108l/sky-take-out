@@ -32,4 +32,9 @@ public interface OrderMapper {
      */
     @Select("select count(id) from orders where status = #{status}")
     Integer countStatus(Integer status);
+
+    /**
+     * 修改订单信息
+     */
+    void update(Orders orders);
 }
