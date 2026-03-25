@@ -49,7 +49,7 @@ public interface OrderMapper {
      */
     Double sumByMap(Map map);
 
-    @Select("select * from orders where status = #{status} and create_time < #{createTime}")
+    @Select("select * from orders where status = #{status} and order_time < #{createTime}")
     List<Orders> getByStatusAndCreateTimeLT(Integer status, LocalDateTime createTime);
 
     /**
