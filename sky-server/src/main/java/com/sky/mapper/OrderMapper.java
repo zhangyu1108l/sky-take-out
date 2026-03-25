@@ -50,4 +50,9 @@ public interface OrderMapper {
 
     @Select("select * from orders where status = #{pendingPayment} and create_time &lt; #{localDateTime}")
     List<Orders> getByStatusAndCreateTimeLT(Integer pendingPayment, LocalDateTime localDateTime);
+
+    /**
+     * 根据条件统计订单数量
+     */
+    Integer countByMap(Map map);
 }
