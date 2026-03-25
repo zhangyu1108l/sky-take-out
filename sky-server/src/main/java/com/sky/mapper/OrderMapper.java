@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
@@ -48,11 +49,16 @@ public interface OrderMapper {
      */
     Double sumByMap(Map map);
 
-    @Select("select * from orders where status = #{pendingPayment} and create_time &lt; #{localDateTime}")
-    List<Orders> getByStatusAndCreateTimeLT(Integer pendingPayment, LocalDateTime localDateTime);
+    @Select("select * from orders where status = #{status} and create_time < #{createTime}")
+    List<Orders> getByStatusAndCreateTimeLT(Integer status, LocalDateTime createTime);
 
     /**
      * 根据条件统计订单数量
      */
     Integer countByMap(Map map);
+
+    /**
+     * 获取订单中的商品数据
+     */
+    List<GoodsSalesDTO> getSalesTop10(LocalDateTime beginTime, LocalDateTime endTime);
 }

@@ -1,9 +1,11 @@
 package com.sky.service;
 
 
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.vo.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ReportService {
     /**
@@ -29,4 +31,12 @@ public interface ReportService {
      * @return
      */
     OrderReportVO getOrderStatistics(LocalDate begin, LocalDate end);
+
+    /**
+     * 销量排名10
+     * @param begin
+     * @param end
+     * @return
+     */
+    SalesTop10ReportVO getTop10(LocalDate begin, LocalDate end);
 }

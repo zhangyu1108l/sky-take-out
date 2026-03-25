@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.result.Result;
 import com.sky.service.ReportService;
 import com.sky.vo.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/report")
@@ -67,5 +69,21 @@ public class ReportController {
         log.info("订单统计，结束时间：{}", end);
         OrderReportVO orderReportVO = reportService.getOrderStatistics(begin, end);
         return Result.success(orderReportVO);
+    }
+
+    /**
+     * 销量排名10
+     * @param begin
+     * @param end
+     */
+    @GetMapping("/top10")
+    @ApiOperation("Top10统计")
+    public Result<SalesTop10ReportVO> top10(
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
+        log.info("Top10统计，开始时间：{}", begin);
+        log.info("Top10统计，结束时间：{}", end);
+        SalesTop10ReportVO salesTop10ReportVO = reportService.getTop10(begin, end);
+        return Result.success(salesTop10ReportVO);
     }
 }
