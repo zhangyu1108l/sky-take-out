@@ -6,8 +6,38 @@ sky:
     database: sky_take_out
     username: root
     password: 1234
+    # Druid 连接池配置
+    druid:
+      # 初始化连接数
+      initial-size: 5
+      # 最小空闲连接
+      min-idle: 5
+      # 最大活跃连接
+      max-active: 20
+      # 获取连接超时时间
+      max-wait: 60000
+      # 心跳检测间隔
+      time-between-eviction-runs-millis: 60000
+      # 连接最小空闲时间
+      min-evictable-idle-time-millis: 300000
+      # 连接最大空闲时间 (小于 MySQL 的 wait_timeout)
+      max-evictable-idle-time-millis: 900000
+      # 心跳检测 SQL
+      validation-query: select 1
+      # 申请连接时检测是否空闲
+      test-while-idle: true
+      # 申请连接时执行校验，不影响性能
+      test-on-borrow: false
+      # 归还连接时检测
+      test-on-return: false
   alioss:
     endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-id: your AccessKeyId
-    access-key-secret: your AccessKeySecret
+    access-key-id: your access-key-id
+    access-key-secret: your access-key-secret
     bucket-name: sky-sunye
+  redis:
+    host: localhost
+    port: 6379
+  wechat:
+    appid: your appid
+    secret: your secret
